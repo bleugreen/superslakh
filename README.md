@@ -29,5 +29,7 @@ this makes it well-suited to tasks like:
 
 ### references
 [lakh midi dataset](https://colinraffel.com/projects/lmd/) - where all the midi is from (s/o colin raffel)
+
 [pretty-midi](https://github.com/craffel/pretty-midi)- how the midi files are handled & rendered (also by colin raffel)
+
 [slakh2100](http://www.slakh.com/) - where I got the idea
