@@ -1,0 +1,10 @@
+pretty_midi
+fluidsynth
+torch
+numpy
+torchaudio
+scipy
+librosa
+bs4
+nnAudio
+h5py

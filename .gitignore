@@ -1,0 +1,5 @@
+*.db
+midi/
+soundfonts/
+plots/
+__pycache__
