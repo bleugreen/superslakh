@@ -1,11 +1,12 @@
 import librosa
+import pretty_midi
 import torch
 import subprocess
 import os
 import numpy as np
 from src.audio.utils import normalize_audio
 
-def load_audio_segment(audio_filepath, downbeats, beats, sample_rate):
+def load_audio_segment_beats(audio_filepath, downbeats, beats, sample_rate):
     """
     Loads audio segment from the first downbeat to the end
     """
@@ -52,3 +53,39 @@ def save_audio(audio_data, output_path, normalize=False, sr=44100):
 
     if process.returncode != 0:
         raise Exception(f"FFmpeg returned non-zero exit code: {process.returncode}. Check FFmpeg command and inputs.")
+
+
+
+
+def split_audio_by_tempo(audio_path, midi_path, sample_rate=22050):
+    # Load the audio file
+    y, sr = librosa.load(audio_path, sr=sample_rate)
+    # Load the MIDI file
+    midi_data = pretty_midi.PrettyMIDI(midi_path)
+    # Get the tempo changes from the MIDI file
+    times, tempos = midi_data.get_tempo_changes()
+    # Initialize variables
+    audio_segments = []
+    prev_time = 0
+    # Iterate over the tempo changes
+    for time, tempo in zip(times, tempos):
+        # Convert MIDI time to audio samples
+        start_sample = int(prev_time * sr)
+        end_sample = int(time * sr)
+        # Extract the audio segment
+        audio_segment = y[start_sample:end_sample]
+        # Calculate the BPM
+        bpm = int(tempo)
+        # Append the (bpm, audio) tuple to the list
+        if len(audio_segment) > 0:
+            audio_segments.append((bpm, audio_segment))
+        prev_time = time
+    # Extract the final audio segment
+    start_sample = int(prev_time * sr)
+    audio_segment = y[start_sample:]
+    # Get the final tempo
+    final_tempo = tempos[-1]
+    bpm = int(final_tempo)
+    # Append the final (bpm, audio) tuple to the list
+    audio_segments.append((bpm, audio_segment))
+    return audio_segments

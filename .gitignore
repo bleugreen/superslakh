@@ -3,3 +3,4 @@ midi/
 soundfonts/
 plots/
 __pycache__
+*.hdf5

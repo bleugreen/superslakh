@@ -30,7 +30,11 @@ class BatchProcessor:
                     time.sleep(1)
                 result = self.producer_func(task)
                 if result is not None:
-                    self.result_queue.put(result)
+                    if isinstance(result, list):
+                        for item in result:
+                            self.result_queue.put(item)
+                    else:
+                        self.result_queue.put(result)
             except Empty:
                 break  # No more tasks
         self.completion_event.wait()
