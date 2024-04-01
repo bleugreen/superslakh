@@ -2,8 +2,8 @@
 
 ### what is it?
 - 105,057 midi songs, with over a million instrument stems (subset of lakh midi)
-- ~9,000 instrument presets (containing synths & sampled instruments)
-- a classification / rendering process to combine the two
+- 15,654 instrument presets (synths & sampled instruments)
+- a classification / rendering process to combine the two into over 3500 hours of distinct audio
 
 ### why?
 it can be used to train pretty much any music task
@@ -29,5 +29,7 @@ this makes it well-suited to tasks like:
 
 ### references
 [lakh midi dataset](https://colinraffel.com/projects/lmd/) - where all the midi is from (s/o colin raffel)
+
 [pretty-midi](https://github.com/craffel/pretty-midi)- how the midi files are handled & rendered (also by colin raffel)
+
 [slakh2100](http://www.slakh.com/) - where I got the idea
